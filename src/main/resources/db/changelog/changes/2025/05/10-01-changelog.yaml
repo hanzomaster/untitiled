@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-address-column
+      author: hanzo
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: address
+                  type: VARCHAR(255)
+            tableName: customer
+

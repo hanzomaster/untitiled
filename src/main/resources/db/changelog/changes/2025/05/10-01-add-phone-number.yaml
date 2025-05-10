@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1746860028337-1
+      author: hanzo
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: phone_number
+                  type: VARCHAR(255)
+            tableName: customer
+
