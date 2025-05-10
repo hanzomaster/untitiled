@@ -6,6 +6,7 @@ plugins {
   id("org.graalvm.buildtools.native") version "0.10.6"
   id("org.asciidoctor.jvm.convert") version "3.3.2"
   id("com.diffplug.spotless") version "7.0.3"
+  id("com.github.spotbugs") version "6.1.11"
 }
 
 group = "com.example"
@@ -25,8 +26,11 @@ spotless {
   }
   java {
     target("**/*.java")
-    targetExclude("**/build/**/*.java")
+    targetExclude("**/build/**/*.java", "**/generated/**/*.java")
+    toggleOffOn()
     removeUnusedImports()
+    trimTrailingWhitespace()
+    endWithNewline()
     importOrder()
     cleanthat()
     googleJavaFormat()
@@ -47,6 +51,11 @@ spotless {
   protobuf { buf() }
 }
 
+spotbugs {
+  omitVisitors.addAll("FindReturnRef", "DontReusePublicIdentifiers")
+  excludeFilter = file("${rootDir}/config/spotbugs/exclude.xml")
+}
+
 configurations { compileOnly { extendsFrom(configurations.annotationProcessor.get()) } }
 
 repositories { mavenCentral() }
@@ -65,6 +74,7 @@ dependencies {
   implementation("io.zipkin.reporter2:zipkin-reporter-brave")
   implementation("org.liquibase:liquibase-core")
   compileOnly("org.projectlombok:lombok")
+  compileOnly("com.github.spotbugs:spotbugs-annotations")
   developmentOnly("org.springframework.boot:spring-boot-devtools")
   developmentOnly("org.springframework.boot:spring-boot-docker-compose")
   runtimeOnly("io.micrometer:micrometer-registry-otlp")
