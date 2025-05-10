@@ -1,17 +1,17 @@
+---
 spring:
   application:
-    name: untitled
+    name: "untitled"
   docker:
     compose:
-      lifecycle-management: start_only
+      lifecycle-management: "start_only"
 logging:
   pattern:
-    #    level: "%5p [%X{traceId:-},%X{spanId:-}]"
     dateformat: "yyyy-MM-dd HH:mm:ss.SSS"
 server:
   servlet:
-    context-path: /api
+    context-path: "/api"
   error:
     whitelabel:
       enabled: false
-    include-binding-errors: never
+    include-binding-errors: "never"
